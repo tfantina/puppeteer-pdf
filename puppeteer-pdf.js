@@ -8,7 +8,7 @@ const isUrl = require("is-url");
 const puppeteer = require("puppeteer");
 
 cli
-  .version("1.2.0")
+  .version("1.2.1")
   .option("-p, --path <path>", "The file path to save the PDF to.")
   .option(
     "-s, --scale [scale]",
@@ -66,7 +66,7 @@ cli
     "waitUntil accepts choices load, domcontentloaded, networkidle0, networkidle2. Defaults to 'networkidle2'.",
     "networkidle2"
   )
-  .action(function(required, optional) {
+  .action(function (required, optional) {
     // TODO: Implement required arguments validation
   })
   .parse(process.argv);
@@ -75,7 +75,7 @@ cli
   let options = {};
 
   // Loop through options
-  _.each(cli.options, function(option) {
+  _.each(cli.options, function (option) {
     const optionName = option.name();
     if (!_.isNil(cli[optionName]) && !["version"].includes(optionName)) {
       const optionValue = cli[optionName];
@@ -94,7 +94,7 @@ cli
   });
 
   // Check if we need to read header or footer templates from files
-  _.each(["headerTemplate", "footerTemplate"], function(template) {
+  _.each(["headerTemplate", "footerTemplate"], function (template) {
     if (_.get(options, template, "").startsWith("file://")) {
       options[template] = fs.readFileSync(
         options[template].replace("file://", ""),
